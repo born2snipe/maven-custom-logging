@@ -17,11 +17,33 @@ package org.apache.maven.log.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ConfigSerializer {
     public Config load(String classPathPath) {
+        return loadUrl(classLoader().getResource(classPathPath));
+    }
+
+    public Config quietLoad(File file) {
+        if (file.exists())
+            return load(file);
+        return null;
+    }
+
+    public Config load(File file) {
+        try {
+            return loadUrl(file.toURI().toURL());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Config loadUrl(URL url) {
         try {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            return mapper.readValue(classLoader().getResource(classPathPath), Config.class);
+            return mapper.readValue(url, Config.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -31,9 +31,16 @@ public class ColorLinesMatchingPatternFilterTest {
         filter = new ColorLinesMatchingPatternFilter();
     }
 
+    @Test(expected = RuntimeException.class)
+    public void blowUpIfNoRenderValueIsProvided() {
+        Config config = config(colorConfig("hello", ""));
+
+        filter.filter(new LogEntryFilter.Context(null, "hello", config));
+    }
+
     @Test
     public void multipleColorConfigs() {
-        Config config = config(colorConfig("hello", "red", "white"), colorConfig("world", "green", "blue"));
+        Config config = config(colorConfig("hello", "bg_red,fg_white"), colorConfig("world", "@|bg_green,fg_blue $0|@"));
 
         String result = filter.filter(new LogEntryFilter.Context(null, "world", config));
         assertEquals(ansi().bg(GREEN).fg(BLUE).a("world").reset().toString(), result);
@@ -42,21 +49,21 @@ public class ColorLinesMatchingPatternFilterTest {
 
     @Test
     public void lineDoesNotMatch() {
-        Config config = config(colorConfig("hello", "red", "white"));
+        Config config = config(colorConfig("hello", "@|bg_red,fg_white $0|@"));
 
         assertEquals("world", filter.filter(new LogEntryFilter.Context(null, "world", config)));
     }
 
     @Test(expected = RuntimeException.class)
     public void blowUpForUnknownColor() {
-        Config config = config(colorConfig("hello", "unknown", null));
+        Config config = config(colorConfig("hello", "@|unknown $0|@"));
 
         filter.filter(new LogEntryFilter.Context(null, "hello", config));
     }
 
     @Test
     public void noForegroundColor() {
-        Config config = config(colorConfig("hello", "red", null));
+        Config config = config(colorConfig("hello", "@|bg_red $0|@"));
 
         String result = filter.filter(new LogEntryFilter.Context(null, "hello", config));
 
@@ -65,7 +72,7 @@ public class ColorLinesMatchingPatternFilterTest {
 
     @Test
     public void noBackgroundColor() {
-        Config config = config(colorConfig("hello", null, "white"));
+        Config config = config(colorConfig("hello", "@|white $0|@"));
 
         String result = filter.filter(new LogEntryFilter.Context(null, "hello", config));
 
@@ -74,7 +81,7 @@ public class ColorLinesMatchingPatternFilterTest {
 
     @Test
     public void lineMatchesWithBackgroundAndForegroundColor() {
-        Config config = config(colorConfig("hello", "red", "white"));
+        Config config = config(colorConfig("hello", "@|bg_red,fg_white $0|@"));
 
         String result = filter.filter(new LogEntryFilter.Context(null, "hello", config));
 
@@ -87,11 +94,10 @@ public class ColorLinesMatchingPatternFilterTest {
         return config;
     }
 
-    private LinePatternColoringConfig colorConfig(String pattern, String bg, String fg) {
+    private LinePatternColoringConfig colorConfig(String pattern, String render) {
         LinePatternColoringConfig coloringConfig = new LinePatternColoringConfig();
         coloringConfig.setPattern(pattern);
-        coloringConfig.setBackground(bg);
-        coloringConfig.setForeground(fg);
+        coloringConfig.setRender(render);
         return coloringConfig;
     }
 }

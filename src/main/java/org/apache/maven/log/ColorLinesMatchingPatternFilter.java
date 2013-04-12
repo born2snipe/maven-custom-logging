@@ -15,6 +15,7 @@
 package org.apache.maven.log;
 
 import org.apache.maven.log.config.LinePatternColoringConfig;
+import org.codehaus.plexus.util.StringUtils;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 import org.openide.util.lookup.ServiceProvider;
@@ -33,18 +34,13 @@ public class ColorLinesMatchingPatternFilter implements LogEntryFilter {
     public String filter(Context context) {
         for (LinePatternColoringConfig coloring : context.config.getColoring()) {
             if (isMatch(context, coloring)) {
-                Ansi.Color background = getColorOf(coloring.getBackground());
-                Ansi.Color foreground = getColorOf(coloring.getForeground());
-
-                Ansi ansi = ansi();
-                if (background != null) {
-                    ansi.bg(background);
+                if (StringUtils.isNotBlank(coloring.getRender())) {
+                    return ansi().render(
+                            context.entryText.replaceAll(coloring.getPattern(), coloring.getRender())
+                    ).toString();
+                } else {
+                    throw new IllegalArgumentException("Please provide a 'render' value for your pattern of [" + coloring.getPattern() + "]");
                 }
-                if (foreground != null) {
-                    ansi.fg(foreground);
-                }
-
-                return ansi.a(context.entryText).reset().toString();
             }
         }
         return context.entryText;

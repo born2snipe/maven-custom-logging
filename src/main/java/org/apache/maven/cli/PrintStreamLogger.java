@@ -16,27 +16,21 @@ package org.apache.maven.cli;
 
 import org.apache.maven.Maven;
 import org.apache.maven.log.Level;
-import org.apache.maven.log.LogEntryFilter;
-import org.apache.maven.log.config.Config;
-import org.apache.maven.log.config.ConfigSerializer;
+import org.apache.maven.log.LogFilterApplier;
 import org.codehaus.plexus.logging.AbstractLogger;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.StringUtils;
-import org.openide.util.Lookup;
 
 import java.io.PrintStream;
-import java.util.Collection;
 
 public class PrintStreamLogger extends AbstractLogger {
-
-    private Collection<? extends LogEntryFilter> logEntryFilters;
 
     static interface Provider {
         PrintStream getStream();
     }
 
     private Provider provider;
-    private Config config;
+    private LogFilterApplier logFilterApplier;
 
     public static final String FATAL_ERROR = "[FATAL] ";
     public static final String ERROR = "[ERROR] ";
@@ -52,8 +46,7 @@ public class PrintStreamLogger extends AbstractLogger {
         }
         this.provider = provider;
 
-        config = new ConfigSerializer().load("config/default.yml");
-        logEntryFilters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
+        logFilterApplier = new LogFilterApplier();
     }
 
 
@@ -107,15 +100,13 @@ public class PrintStreamLogger extends AbstractLogger {
 
     private void log(String message, Throwable throwable, String levelName) {
         PrintStream out = provider.getStream();
+        if (isDebugEnabled()) System.out.println("PrintStream used for logging: " + out);
 
-        Level level = Level.valueOf(getThreshold());
         String textToBeLogged = levelName + message;
-        for (LogEntryFilter logEntryFilter : logEntryFilters) {
-            textToBeLogged = logEntryFilter.filter(new LogEntryFilter.Context(level, textToBeLogged, config));
-            if (StringUtils.isBlank(textToBeLogged)) {
-                break;
-            }
-        }
+
+        Level level = Level.valueFromLogText(levelName);
+
+        textToBeLogged = logFilterApplier.apply(textToBeLogged, level);
 
         if (StringUtils.isNotBlank(textToBeLogged)) {
             out.println(textToBeLogged);

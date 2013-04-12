@@ -14,29 +14,17 @@
 
 package org.apache.maven.log;
 
-public enum Level {
-    DEBUG("DEBUG"),
-    INFO("INFO"),
-    WARN("WARNING"),
-    ERROR("ERROR"),
-    FATAL("FATAL"),
-    DISABLED("");
+import org.openide.util.lookup.ServiceProvider;
 
-    public final String text;
+@ServiceProvider(service = LogEntryFilter.class, position = Integer.MIN_VALUE)
+public class ClearLineFilter implements LogEntryFilter {
+    public static boolean clearLine = false;
 
-    private Level(String text) {
-        this.text = text;
-    }
-
-    public static Level valueOf(int level) {
-        return values()[level];
-    }
-
-    public static Level valueFromLogText(String logText) {
-        for (Level level : values()) {
-            if (logText.startsWith("[" + level.text + "]"))
-                return level;
+    @Override
+    public String filter(Context context) {
+        if (clearLine) {
+            return "";
         }
-        return null;
+        return context.entryText;
     }
 }

@@ -21,10 +21,10 @@ public class RemoveLogLevelFilter implements LogEntryFilter {
     @Override
     public String filter(Context context) {
         if (context.config.isRemoveLogLevel()) {
-            StringBuilder pattern = new StringBuilder();
-            pattern.append("(").append("\\[").append(context.level.text).append("\\]").append("|");
-            pattern.append("\\[").append(context.level.text.toLowerCase()).append("\\]").append(")");
-            return context.entryText.replaceAll(pattern.toString(), "").trim();
+            String text = context.entryText;
+            text = text.replace("["+context.level.text+"] ", "");
+            text = text.replace("["+context.level.text.toLowerCase()+"] ", "");
+            return text;
         }
         return context.entryText;
     }

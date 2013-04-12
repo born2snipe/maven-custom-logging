@@ -16,8 +16,7 @@ package org.apache.maven.log.config;
 
 public class LinePatternColoringConfig {
     private String pattern;
-    private String foreground;
-    private String background;
+    private String render;
 
     public String getPattern() {
         return pattern;
@@ -27,19 +26,11 @@ public class LinePatternColoringConfig {
         this.pattern = pattern;
     }
 
-    public String getForeground() {
-        return foreground;
+    public String getRender() {
+        return render;
     }
 
-    public void setForeground(String foreground) {
-        this.foreground = foreground;
-    }
-
-    public String getBackground() {
-        return background;
-    }
-
-    public void setBackground(String background) {
-        this.background = background;
+    public void setRender(String render) {
+        this.render = render;
     }
 }

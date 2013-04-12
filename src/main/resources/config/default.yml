@@ -5,17 +5,31 @@ timestampPattern: ""
 # removes the leading [INFO] from the log lines
 removeLogLevel: true
 
+# Color of the log lines
+# pattern - the regex pattern used for determining a line is one you want colored
+# render - is the JANSI syntax for coloring a line
+#          To learn more about the JANSI project go to https://github.com/fusesource/jansi
+#
+# NOTE: the pattern and render are used together in the String.replaceAll() method
+# So if you would like to only color a section of a line, you can.
+#
+# Example: Highlight the build's total time in blue, but leave the label as the default color of the console
+#
+#          pattern: "(.*?Total time.+? )([0-9]+.+)"
+#          render: "$1@|blue,bold $2|@"
+#
 coloring:
     - pattern: ".*BUILD SUCCESS"
-      background: green
-      foreground: white
+      render: "@|green $0|@"
 
     - pattern: ".*BUILD FAILURE"
-      background: red
-      foreground: white
+      render: "@|red,bold $0|@"
 
     # highlight the start of a plugin's execution
     - pattern: ".*--- .+ ---"
-      background: yellow
-      foreground: white
+      render: "@|cyan,bold $0|@"
+
+    # highlight warnings
+    - pattern: ".*WARNING.*"
+      render: "@|yellow,bold $0|@"
 
