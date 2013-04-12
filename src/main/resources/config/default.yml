@@ -1,0 +1,6 @@
+# When a pattern is provided a timestamp will be printed in front of each log entry line
+# The pattern format support is the same as java.text.SimpleDateFormat
+timestampPattern: ""
+
+# removes the leading [INFO] from the log lines
+removeLogLevel: true
