@@ -12,22 +12,18 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package org.apache.maven.log.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.junit.Test;
 
-public class ConfigSerializer {
-    public Config load(String classPathPath) {
-        try {
-            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            return mapper.readValue(classLoader().getResource(classPathPath), Config.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+import java.io.IOException;
 
-    private ClassLoader classLoader() {
-        return Thread.currentThread().getContextClassLoader();
+import static junit.framework.Assert.assertNotNull;
+
+public class DefaultSettingsTest {
+    @Test
+    public void canParseSuccessfully() throws IOException {
+        Config config = new ConfigSerializer().load("config/default.yml");
+        assertNotNull(config);
     }
 }

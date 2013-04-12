@@ -14,6 +14,8 @@
 
 package org.apache.maven.log;
 
+import org.apache.maven.log.config.Config;
+
 public interface LogEntryFilter {
     String filter(Context context);
 

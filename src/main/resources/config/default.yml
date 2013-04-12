@@ -4,3 +4,18 @@ timestampPattern: ""
 
 # removes the leading [INFO] from the log lines
 removeLogLevel: true
+
+coloring:
+    - pattern: ".*BUILD SUCCESS"
+      background: green
+      foreground: white
+
+    - pattern: ".*BUILD FAILURE"
+      background: red
+      foreground: white
+
+    # highlight the start of a plugin's execution
+    - pattern: ".*--- .+ ---"
+      background: yellow
+      foreground: white
+

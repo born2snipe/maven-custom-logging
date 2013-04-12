@@ -14,6 +14,7 @@
 
 package org.apache.maven.log;
 
+import org.apache.maven.log.config.Config;
 import org.junit.Before;
 import org.junit.Test;
 

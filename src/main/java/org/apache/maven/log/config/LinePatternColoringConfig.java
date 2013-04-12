@@ -12,29 +12,34 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package org.apache.maven.log.config;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public class LinePatternColoringConfig {
+    private String pattern;
+    private String foreground;
+    private String background;
 
-public class Config {
-    @JsonProperty
-    private String timestampPattern;
-    @JsonProperty
-    private boolean removeLogLevel;
-
-    public String getTimestampPattern() {
-        return timestampPattern;
+    public String getPattern() {
+        return pattern;
     }
 
-    public void setTimestampPattern(String timestampPattern) {
-        this.timestampPattern = timestampPattern;
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 
-    public void setRemoveLogLevel(boolean removeLogLevel) {
-        this.removeLogLevel = removeLogLevel;
+    public String getForeground() {
+        return foreground;
     }
 
-    public boolean isRemoveLogLevel() {
-        return removeLogLevel;
+    public void setForeground(String foreground) {
+        this.foreground = foreground;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }

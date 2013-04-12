@@ -15,10 +15,10 @@
 package org.apache.maven.cli;
 
 import org.apache.maven.Maven;
-import org.apache.maven.log.Config;
-import org.apache.maven.log.ConfigSerializer;
 import org.apache.maven.log.Level;
 import org.apache.maven.log.LogEntryFilter;
+import org.apache.maven.log.config.Config;
+import org.apache.maven.log.config.ConfigSerializer;
 import org.codehaus.plexus.logging.AbstractLogger;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.StringUtils;
