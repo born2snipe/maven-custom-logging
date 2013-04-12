@@ -17,7 +17,7 @@ There are 2 different ways for you to supply a custom configuration file:
 - put config file `custom-logging.yml` in your `$MAVEN_HOME/conf` directory
 - supply this system property `custom.logging.configuration` at the commandline, with a value pointing to your config file
 
-#### Note: (Sample Configuration File)[https://github.com/born2snipe/maven-custom-logging/blob/master/src/main/resources/config/default.yml]
+#### Note: [Sample Configuration File][1]
 
 ## FAQ
 - Lines I am attempting to color are not being colored?
@@ -26,10 +26,14 @@ There are 2 different ways for you to supply a custom configuration file:
   - This can be caused by a maven plugin that has switched out the `System.out` to a different instance
 
 - What colors/options are available for the `render` configuration?
-  - Colors and Options available are (here)[https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127]
-  - Examples of render syntax is (here)[https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java]
+  - Colors and Options available are [here][2]
+  - Examples of render syntax is [here][3]
 
 - How can I see phases of the filtering of the log lines?
   - If you specify the `-X` switch at the commandline this will put Maven in debug mode and A LOT of information will be printed.
   - This will show the before and after of each log line we filtered
+
+  [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/src/main/resources/config/default.yml "sample"
+  [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
+  [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"
 
