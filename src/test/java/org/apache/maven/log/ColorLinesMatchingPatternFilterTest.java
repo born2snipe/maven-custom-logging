@@ -31,11 +31,11 @@ public class ColorLinesMatchingPatternFilterTest {
         filter = new ColorLinesMatchingPatternFilter();
     }
 
-    @Test(expected = RuntimeException.class)
-    public void blowUpIfNoRenderValueIsProvided() {
+    @Test
+    public void allowEmptyRenderValue() {
         Config config = config(colorConfig("hello", ""));
 
-        filter.filter(new LogEntryFilter.Context(null, "hello", config));
+        assertEquals("", filter.filter(new LogEntryFilter.Context(null, "hello", config)));
     }
 
     @Test

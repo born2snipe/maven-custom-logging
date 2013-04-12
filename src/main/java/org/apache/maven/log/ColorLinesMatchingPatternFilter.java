@@ -34,13 +34,9 @@ public class ColorLinesMatchingPatternFilter implements LogEntryFilter {
     public String filter(Context context) {
         for (LinePatternColoringConfig coloring : context.config.getColoring()) {
             if (isMatch(context, coloring)) {
-                if (StringUtils.isNotBlank(coloring.getRender())) {
-                    return ansi().render(
-                            context.entryText.replaceAll(coloring.getPattern(), coloring.getRender())
-                    ).toString();
-                } else {
-                    throw new IllegalArgumentException("Please provide a 'render' value for your pattern of [" + coloring.getPattern() + "]");
-                }
+                return ansi().render(
+                        context.entryText.replaceAll(coloring.getPattern(), coloring.getRender())
+                ).toString();
             }
         }
         return context.entryText;
