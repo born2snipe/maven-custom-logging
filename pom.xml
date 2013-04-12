@@ -10,7 +10,7 @@
 
 
     <scm>
-        <developerConnection>scm:git:git://github.com/born2snipe/maven-ansi-colors.git</developerConnection>
+        <developerConnection>scm:git:git://github.com/born2snipe/maven-custom-logging.git</developerConnection>
     </scm>
 
 
