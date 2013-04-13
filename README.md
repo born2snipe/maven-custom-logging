@@ -22,20 +22,20 @@ There are 3 different ways for you to supply a custom configuration file:
 #### Note: [Sample Configuration File][1]
 
 ## FAQ
-- Lines I am attempting to color are not being colored?
+- *Lines I am attempting to color are not being colored?*
   - This can be caused by your regex pattern being incorrect
   - This can be caused by a maven plugin that is running in your build decided to not use Maven's Logger
   - This can be caused by a maven plugin that has switched out the `System.out` to a different instance (ie. maven-surefire-plugin)
 
-- What colors/options are available for the `render` configuration?
+- *What colors/options are available for the `render` configuration?*
   - Colors and Options available are [here][2]
   - Examples of render syntax is [here][3]
 
-- How can I see phases of the filtering of the log lines?
+- *How can I see phases of the filtering of the log lines?*
   - If you specify the `-X` switch at the commandline this will put Maven in debug mode and A LOT of information will be printed.
   - This will show the before and after of each log line we filtered
 
-- How can I temporary shutoff the log filtering?
+- *How can I temporary shutoff the log filtering?*
   - Just supply `custom.logging.off` system property and you should see all the original maven output
 
 ## Maven versions Tested and working
