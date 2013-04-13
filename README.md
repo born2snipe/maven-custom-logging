@@ -38,3 +38,6 @@ There are 2 different ways for you to supply a custom configuration file:
   [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
   [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"
 
+## Maven versions Tested and working
+  - [x] 3.0.4
+  - [x] 3.0.5
