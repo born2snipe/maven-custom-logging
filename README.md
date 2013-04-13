@@ -6,6 +6,7 @@ This is a maven extension that allows some customization of the maven console ou
 - Remove the log threshold from the output (ie. `[INFO]`)
 - Prepend a timestamp to each log line
 - Coloring of whole lines or segments of lines using the [JANSI](https://github.com/fusesource/jansi) library
+- Alter text output or remove output
 
 ## Setup
 - Clone the project and build using Maven
