@@ -34,10 +34,16 @@ There are 2 different ways for you to supply a custom configuration file:
   - If you specify the `-X` switch at the commandline this will put Maven in debug mode and A LOT of information will be printed.
   - This will show the before and after of each log line we filtered
 
-  [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/src/main/resources/config/default.yml "sample"
-  [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
-  [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"
+- How can I temporary shutoff the log filtering?
+  - Just supply `custom.logging.off` system property and you should see all the original maven output
 
 ## Maven versions Tested and working
   - [x] 3.0.4
   - [x] 3.0.5
+
+
+
+
+  [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/src/main/resources/config/default.yml "sample"
+  [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
+  [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"

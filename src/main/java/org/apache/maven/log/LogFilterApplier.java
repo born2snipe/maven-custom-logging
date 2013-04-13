@@ -26,6 +26,7 @@ import java.util.Collection;
 public class LogFilterApplier {
     public static final String CONFIG_SYSTEM_PROPERTY = "custom.logging.configuration";
     public static final String GLOBAL_CONFIG_NAME = "custom-logging.yml";
+    public static final String OFF_SWITCH = "custom.logging.off";
     private Collection<? extends LogEntryFilter> filters;
     private Config config;
     private ConfigSerializer configSerializer = new ConfigSerializer();
@@ -35,6 +36,10 @@ public class LogFilterApplier {
     }
 
     public String apply(String text, Level level) {
+        if (System.getProperties().containsKey(OFF_SWITCH)) {
+            return text;
+        }
+
         loadConfiguration(level);
 
         String result = text;

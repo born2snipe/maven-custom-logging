@@ -26,6 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 
+import static org.apache.maven.log.LogFilterApplier.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -43,9 +44,18 @@ public class LogFilterApplierTest {
         ClearLineFilter.clearLine = false;
         config = new Config();
 
+        System.getProperties().remove(OFF_SWITCH);
         expectSystemPropertyConfig(null);
         expectGlobalConfig(null);
         when(serializer.load("config/default.yml")).thenReturn(config);
+    }
+
+    @Test
+    public void systemPropertySwitchGivenToShutOffFiltering() {
+        System.setProperty(OFF_SWITCH, "");
+        config.setRemoveLogLevel(true);
+
+        assertEquals("[INFO] text", applier.apply("[INFO] text", Level.INFO));
     }
 
     @Test
@@ -114,16 +124,16 @@ public class LogFilterApplierTest {
 
     private void expectSystemPropertyConfig(Config config) {
         if (config == null) {
-            System.setProperty(LogFilterApplier.CONFIG_SYSTEM_PROPERTY, "");
+            System.setProperty(CONFIG_SYSTEM_PROPERTY, "");
         } else {
-            System.setProperty(LogFilterApplier.CONFIG_SYSTEM_PROPERTY, "config-location");
+            System.setProperty(CONFIG_SYSTEM_PROPERTY, "config-location");
             File configFile = new File("config-location");
             when(serializer.load(configFile)).thenReturn(config);
         }
     }
 
     private void expectGlobalConfig(Config config) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), LogFilterApplier.GLOBAL_CONFIG_NAME);
+        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), GLOBAL_CONFIG_NAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 }
