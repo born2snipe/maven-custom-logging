@@ -27,9 +27,11 @@ public class LogFilterApplier {
     public static final String CONFIG_SYSTEM_PROPERTY = "custom.logging.configuration";
     public static final String GLOBAL_CONFIG_NAME = "custom-logging.yml";
     public static final String OFF_SWITCH = "custom.logging.off";
+    public static final String ENV_CONFIG_LOCATION = "MAVEN_CUSTOM_LOGGING_CONFIG";
     private Collection<? extends LogEntryFilter> filters;
     private Config config;
     private ConfigSerializer configSerializer = new ConfigSerializer();
+    private EnvAccessor envAccessor = new EnvAccessor();
 
     public LogFilterApplier() {
         filters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
@@ -64,8 +66,16 @@ public class LogFilterApplier {
     private void loadConfiguration(Level level) {
         if (config == null) {
             loadSystemPropertyConfigFile(level);
+            loadEnvPropertyConfigFile(level);
             loadGlobalConfigFile(level);
             loadDefaultConfigFile(level);
+        }
+    }
+
+    private void loadEnvPropertyConfigFile(Level level) {
+        String value = envAccessor.get(ENV_CONFIG_LOCATION);
+        if (config == null && StringUtils.isNotBlank(value)) {
+            config = configSerializer.quietLoad(new File(value));
         }
     }
 

@@ -34,6 +34,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class LogFilterApplierTest {
     @Mock
+    private EnvAccessor envAccessor;
+    @Mock
     private ConfigSerializer serializer;
     @InjectMocks
     private LogFilterApplier applier;
@@ -68,12 +70,23 @@ public class LogFilterApplierTest {
     }
 
     @Test
+    public void envVariableConfigFileLocation() {
+        config.setRemoveLogLevel(true);
+
+        expectEnvConfig(config);
+        expectGlobalConfig(new Config());
+
+        assertEquals("test", applier.apply("[INFO] test", Level.INFO));
+    }
+
+    @Test
     public void systemPropertyLocationOfConfigFileShouldTrumpEverything() {
         Config systemPropertyConfig = new Config();
         systemPropertyConfig.setRemoveLogLevel(true);
 
         expectSystemPropertyConfig(systemPropertyConfig);
         expectGlobalConfig(new Config());
+        expectEnvConfig(new Config());
 
         assertEquals("test", applier.apply("[INFO] test", Level.INFO));
     }
@@ -135,5 +148,10 @@ public class LogFilterApplierTest {
     private void expectGlobalConfig(Config config) {
         File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), GLOBAL_CONFIG_NAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
+    }
+
+    private void expectEnvConfig(Config config) {
+        when(envAccessor.get(LogFilterApplier.ENV_CONFIG_LOCATION)).thenReturn("env_config");
+        when(serializer.quietLoad(new File("env_config"))).thenReturn(config);
     }
 }

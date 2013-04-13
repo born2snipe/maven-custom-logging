@@ -14,9 +14,10 @@ This is a maven extension that allows some customization of the maven console ou
 - Run any maven build you would like and you should see some colors!
 
 ## How to use my own configuration?
-There are 2 different ways for you to supply a custom configuration file:
-- put config file `custom-logging.yml` in your `$MAVEN_HOME/conf` directory
+There are 3 different ways for you to supply a custom configuration file:
 - supply this system property `custom.logging.configuration` at the commandline, with a value pointing to your config file
+- supply the environment variable `MAVEN_CUSTOM_LOGGING_CONFIG` and put the path to your config file as it's value
+- put config file `custom-logging.yml` in your `$MAVEN_HOME/conf` directory
 
 #### Note: [Sample Configuration File][1]
 
