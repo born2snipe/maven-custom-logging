@@ -25,7 +25,7 @@ There are 3 different ways for you to supply a custom configuration file:
 - Lines I am attempting to color are not being colored?
   - This can be caused by your regex pattern being incorrect
   - This can be caused by a maven plugin that is running in your build decided to not use Maven's Logger
-  - This can be caused by a maven plugin that has switched out the `System.out` to a different instance
+  - This can be caused by a maven plugin that has switched out the `System.out` to a different instance (ie. maven-surefire-plugin)
 
 - What colors/options are available for the `render` configuration?
   - Colors and Options available are [here][2]
