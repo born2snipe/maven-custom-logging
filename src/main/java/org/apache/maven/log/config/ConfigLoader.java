@@ -23,7 +23,7 @@ import java.io.File;
 
 public class ConfigLoader {
     public static final String CONFIG_SYSTEM_PROPERTY = "custom.logging.configuration";
-    public static final String GLOBAL_CONFIG_NAME = "custom-logging.yml";
+    public static final String CONFIG_FILENAME = "maven-custom-logging.yml";
     public static final String ENV_CONFIG_LOCATION = "MAVEN_CUSTOM_LOGGING_CONFIG";
     public ConfigSerializer configSerializer;
     public EnvAccessor envAccessor;
@@ -47,7 +47,7 @@ public class ConfigLoader {
     }
 
     private Config loadUserHomeConfigFile(Level level) {
-        return configSerializer.quietLoad(new File(System.getProperty("user.home"), GLOBAL_CONFIG_NAME));
+        return configSerializer.quietLoad(new File(System.getProperty("user.home"), CONFIG_FILENAME));
     }
 
     public Config loadEnvPropertyConfigFile(Level level) {
@@ -74,7 +74,7 @@ public class ConfigLoader {
     }
 
     public Config loadGlobalConfigFile(Level level) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), GLOBAL_CONFIG_NAME);
+        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), CONFIG_FILENAME);
         if (level == Level.DEBUG) System.out.println("Global config file: " + configFile);
         return configSerializer.quietLoad(configFile);
     }

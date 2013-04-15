@@ -158,7 +158,7 @@ public class LogFilterApplierTest {
     }
 
     private void expectGlobalConfig(Config config) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), ConfigLoader.GLOBAL_CONFIG_NAME);
+        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), ConfigLoader.CONFIG_FILENAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 
@@ -168,7 +168,7 @@ public class LogFilterApplierTest {
     }
 
     private void expectUserHomeConfig(Config config) {
-        File configFile = new File(System.getProperty("user.home"), ConfigLoader.GLOBAL_CONFIG_NAME);
+        File configFile = new File(System.getProperty("user.home"), ConfigLoader.CONFIG_FILENAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 }
