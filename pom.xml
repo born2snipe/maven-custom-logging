@@ -13,6 +13,9 @@
         <developerConnection>scm:git:git://github.com/born2snipe/maven-custom-logging.git</developerConnection>
     </scm>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -125,8 +128,9 @@
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
-                <version>1.8.0</version>
+                <version>1.9.0</version>
                 <configuration>
+                    <strictCheck>true</strictCheck>
                     <basedir>${basedir}</basedir>
                     <header>${basedir}/LICENSE.txt</header>
                     <quiet>false</quiet>
