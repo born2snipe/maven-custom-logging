@@ -26,6 +26,7 @@ There are 3 different ways for you to supply a custom configuration file:
   - This can be caused by your regex pattern being incorrect
   - This can be caused by a maven plugin that is running in your build decided to not use Maven's Logger
   - This can be caused by a maven plugin that has switched out the `System.out` to a different instance *(ie. maven-surefire-plugin)*
+  - This can be caused by the output being sent to a [file](https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiConsole.java#L66)
 
 - **What colors/options are available for the `render` configuration?**
   - Colors and Options available are [here][2]
