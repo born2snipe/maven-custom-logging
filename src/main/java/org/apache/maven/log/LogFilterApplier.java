@@ -23,6 +23,7 @@ import java.util.Collection;
 
 public class LogFilterApplier {
     public static final String OFF_SWITCH = "custom.logging.off";
+    public static final String DEBUG_SWITCH = "custom.logging.debug";
     private ConfigLoader configLoader = new ConfigLoader();
     private Collection<? extends LogEntryFilter> filters;
     private Config config;
@@ -36,10 +37,12 @@ public class LogFilterApplier {
             return text;
         }
 
-        if (config == null) config = configLoader.loadConfiguration(level);
+        boolean displayDebugInfo = System.getProperties().containsKey(DEBUG_SWITCH);
+
+        if (config == null) config = configLoader.loadConfiguration(displayDebugInfo);
 
         String result = text;
-        if (level == Level.DEBUG) System.out.println("Original log Text: [" + text + "]");
+        if (displayDebugInfo) System.out.println("Original log Text: [" + text + "]");
 
         for (LogEntryFilter filter : filters) {
             LogEntryFilter.Context context = new LogEntryFilter.Context(
@@ -47,7 +50,7 @@ public class LogFilterApplier {
             );
             result = filter.filter(context);
 
-            if (level == Level.DEBUG) System.out.println("Log text filtered by " + filter + ": [" + result + "]");
+            if (displayDebugInfo) System.out.println("Log text filtered by " + filter + ": [" + result + "]");
 
             if (StringUtils.isBlank(result)) {
                 return result;

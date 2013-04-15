@@ -34,7 +34,7 @@ There are 4 different ways for you to supply a custom configuration file:
   - Examples of render syntax is [here][3]
 
 - **How can I see phases of the filtering of the log lines?**
-  - If you specify the `-X` switch at the commandline this will put Maven in debug mode and A LOT of information will be printed.
+  - If you specify the `-Dcustom.logging.debug` switch at the commandline this will put custom logging into debug mode and A LOT of information will be printed.
   - This will show the before and after of each log line we filtered
 
 - **How can I temporary shutoff the log filtering?**

@@ -16,7 +16,6 @@ package org.apache.maven.log.config;
 
 import org.apache.maven.cli.MavenCli;
 import org.apache.maven.log.EnvAccessor;
-import org.apache.maven.log.Level;
 import org.codehaus.plexus.util.StringUtils;
 
 import java.io.File;
@@ -37,46 +36,52 @@ public class ConfigLoader {
         this.envAccessor = envAccessor;
     }
 
-    public Config loadConfiguration(Level level) {
-        Config config = loadSystemPropertyConfigFile(level);
-        if (config == null) config = loadEnvPropertyConfigFile(level);
-        if (config == null) config = loadUserHomeConfigFile(level);
-        if (config == null) config = loadGlobalConfigFile(level);
-        if (config == null) config = loadDefaultConfigFile(level);
+    public Config loadConfiguration(boolean debug) {
+        Config config = loadSystemPropertyConfigFile(debug);
+        if (config == null) config = loadEnvPropertyConfigFile(debug);
+        if (config == null) config = loadUserHomeConfigFile(debug);
+        if (config == null) config = loadGlobalConfigFile(debug);
+        if (config == null) config = loadDefaultConfigFile(debug);
         return config;
     }
 
-    private Config loadUserHomeConfigFile(Level level) {
-        return configSerializer.quietLoad(new File(System.getProperty("user.home"), CONFIG_FILENAME));
+    private Config loadUserHomeConfigFile(boolean debug) {
+        File file = new File(System.getProperty("user.home"), CONFIG_FILENAME);
+        Config config = configSerializer.quietLoad(file);
+        if (config != null && debug) System.out.println("Using config from 'user.home': " + file);
+        return config;
     }
 
-    public Config loadEnvPropertyConfigFile(Level level) {
+    public Config loadEnvPropertyConfigFile(boolean debug) {
         String value = envAccessor.get(ENV_CONFIG_LOCATION);
         if (StringUtils.isNotBlank(value)) {
-            return configSerializer.quietLoad(new File(value));
+            Config config = configSerializer.quietLoad(new File(value));
+            if (config != null && debug) System.out.println("Using config from $" + ENV_CONFIG_LOCATION + "=" + value);
+            return config;
         }
         return null;
     }
 
-    public Config loadSystemPropertyConfigFile(Level level) {
+    public Config loadSystemPropertyConfigFile(boolean debug) {
         String configFileLocation = System.getProperty(CONFIG_SYSTEM_PROPERTY);
         if (StringUtils.isNotBlank(configFileLocation)) {
             File configFile = new File(configFileLocation);
-            if (level == Level.DEBUG) System.out.println("System property config file: " + configFile);
+            if (debug) System.out.println("System property config file: " + configFile);
             return configSerializer.load(configFile);
         }
         return null;
     }
 
-    public Config loadDefaultConfigFile(Level level) {
-        if (level == Level.DEBUG) System.out.println("Using default config file");
+    public Config loadDefaultConfigFile(boolean debug) {
+        if (debug) System.out.println("Using default config file");
         return configSerializer.load("config/default.yml");
     }
 
-    public Config loadGlobalConfigFile(Level level) {
+    public Config loadGlobalConfigFile(boolean debug) {
         File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), CONFIG_FILENAME);
-        if (level == Level.DEBUG) System.out.println("Global config file: " + configFile);
-        return configSerializer.quietLoad(configFile);
+        Config config = configSerializer.quietLoad(configFile);
+        if (config != null && debug) System.out.println("Global config file: " + configFile);
+        return config;
     }
 
 }
