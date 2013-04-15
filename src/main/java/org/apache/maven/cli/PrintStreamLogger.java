@@ -100,7 +100,7 @@ public class PrintStreamLogger extends AbstractLogger {
 
     private void log(String message, Throwable throwable, String levelName) {
         PrintStream out = provider.getStream();
-        if (isDebugEnabled()) System.out.println("PrintStream used for logging: " + out);
+        if (logFilterApplier.showDebugInfo()) System.out.println("PrintStream used for logging: " + out);
 
         String textToBeLogged = levelName + message;
 

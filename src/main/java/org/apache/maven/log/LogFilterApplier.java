@@ -37,7 +37,7 @@ public class LogFilterApplier {
             return text;
         }
 
-        boolean displayDebugInfo = System.getProperties().containsKey(DEBUG_SWITCH);
+        boolean displayDebugInfo = showDebugInfo();
 
         if (config == null) config = configLoader.loadConfiguration(displayDebugInfo);
 
@@ -58,6 +58,10 @@ public class LogFilterApplier {
         }
 
         return result;
+    }
+
+    public boolean showDebugInfo() {
+        return System.getProperties().containsKey(DEBUG_SWITCH);
     }
 
     public void setConfigLoader(ConfigLoader configLoader) {
