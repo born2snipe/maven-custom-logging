@@ -14,24 +14,18 @@
 
 package org.apache.maven.log;
 
-import org.apache.maven.cli.MavenCli;
 import org.apache.maven.log.config.Config;
-import org.apache.maven.log.config.ConfigSerializer;
+import org.apache.maven.log.config.ConfigLoader;
 import org.codehaus.plexus.util.StringUtils;
 import org.openide.util.Lookup;
 
-import java.io.File;
 import java.util.Collection;
 
 public class LogFilterApplier {
-    public static final String CONFIG_SYSTEM_PROPERTY = "custom.logging.configuration";
-    public static final String GLOBAL_CONFIG_NAME = "custom-logging.yml";
     public static final String OFF_SWITCH = "custom.logging.off";
-    public static final String ENV_CONFIG_LOCATION = "MAVEN_CUSTOM_LOGGING_CONFIG";
+    private ConfigLoader configLoader = new ConfigLoader();
     private Collection<? extends LogEntryFilter> filters;
     private Config config;
-    private ConfigSerializer configSerializer = new ConfigSerializer();
-    private EnvAccessor envAccessor = new EnvAccessor();
 
     public LogFilterApplier() {
         filters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
@@ -42,7 +36,7 @@ public class LogFilterApplier {
             return text;
         }
 
-        loadConfiguration(level);
+        if (config == null) config = configLoader.loadConfiguration(level);
 
         String result = text;
         if (level == Level.DEBUG) System.out.println("Original log Text: [" + text + "]");
@@ -63,47 +57,7 @@ public class LogFilterApplier {
         return result;
     }
 
-    private void loadConfiguration(Level level) {
-        if (config == null) {
-            loadSystemPropertyConfigFile(level);
-            loadEnvPropertyConfigFile(level);
-            loadGlobalConfigFile(level);
-            loadDefaultConfigFile(level);
-        }
-    }
-
-    private void loadEnvPropertyConfigFile(Level level) {
-        String value = envAccessor.get(ENV_CONFIG_LOCATION);
-        if (config == null && StringUtils.isNotBlank(value)) {
-            config = configSerializer.quietLoad(new File(value));
-        }
-    }
-
-    private void loadSystemPropertyConfigFile(Level level) {
-        String configFileLocation = System.getProperty(CONFIG_SYSTEM_PROPERTY);
-        if (StringUtils.isNotBlank(configFileLocation)) {
-            File configFile = new File(configFileLocation);
-            if (level == Level.DEBUG) System.out.println("System property config file: " + configFile);
-            config = configSerializer.load(configFile);
-        }
-    }
-
-    private void loadDefaultConfigFile(Level level) {
-        if (config == null) {
-            if (level == Level.DEBUG) System.out.println("Using default config file");
-            config = configSerializer.load("config/default.yml");
-        }
-    }
-
-    private void loadGlobalConfigFile(Level level) {
-        if (config == null) {
-            File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), GLOBAL_CONFIG_NAME);
-            if (level == Level.DEBUG) System.out.println("Global config file: " + configFile);
-            config = configSerializer.quietLoad(configFile);
-        }
-    }
-
-    public void setConfigSerializer(ConfigSerializer configSerializer) {
-        this.configSerializer = configSerializer;
+    public void setConfigLoader(ConfigLoader configLoader) {
+        this.configLoader = configLoader;
     }
 }

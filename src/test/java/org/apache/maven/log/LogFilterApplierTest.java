@@ -16,17 +16,17 @@ package org.apache.maven.log;
 
 import org.apache.maven.cli.MavenCli;
 import org.apache.maven.log.config.Config;
+import org.apache.maven.log.config.ConfigLoader;
 import org.apache.maven.log.config.ConfigSerializer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 
-import static org.apache.maven.log.LogFilterApplier.*;
+import static org.apache.maven.log.LogFilterApplier.OFF_SWITCH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -37,12 +37,14 @@ public class LogFilterApplierTest {
     private EnvAccessor envAccessor;
     @Mock
     private ConfigSerializer serializer;
-    @InjectMocks
     private LogFilterApplier applier;
     private Config config;
 
     @Before
     public void setUp() throws Exception {
+        applier = new LogFilterApplier();
+        applier.setConfigLoader(new ConfigLoader(serializer, envAccessor));
+
         ClearLineFilter.clearLine = false;
         config = new Config();
 
@@ -87,6 +89,16 @@ public class LogFilterApplierTest {
         expectSystemPropertyConfig(systemPropertyConfig);
         expectGlobalConfig(new Config());
         expectEnvConfig(new Config());
+
+        assertEquals("test", applier.apply("[INFO] test", Level.INFO));
+    }
+
+    @Test
+    public void shouldAttemptToLoadConfigFileInUsersHomeDirectory() {
+        Config globalConfig = new Config();
+        globalConfig.setRemoveLogLevel(true);
+        expectUserHomeConfig(globalConfig);
+        expectGlobalConfig(new Config());
 
         assertEquals("test", applier.apply("[INFO] test", Level.INFO));
     }
@@ -137,21 +149,26 @@ public class LogFilterApplierTest {
 
     private void expectSystemPropertyConfig(Config config) {
         if (config == null) {
-            System.setProperty(CONFIG_SYSTEM_PROPERTY, "");
+            System.setProperty(ConfigLoader.CONFIG_SYSTEM_PROPERTY, "");
         } else {
-            System.setProperty(CONFIG_SYSTEM_PROPERTY, "config-location");
+            System.setProperty(ConfigLoader.CONFIG_SYSTEM_PROPERTY, "config-location");
             File configFile = new File("config-location");
             when(serializer.load(configFile)).thenReturn(config);
         }
     }
 
     private void expectGlobalConfig(Config config) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), GLOBAL_CONFIG_NAME);
+        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), ConfigLoader.GLOBAL_CONFIG_NAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 
     private void expectEnvConfig(Config config) {
-        when(envAccessor.get(LogFilterApplier.ENV_CONFIG_LOCATION)).thenReturn("env_config");
+        when(envAccessor.get(ConfigLoader.ENV_CONFIG_LOCATION)).thenReturn("env_config");
         when(serializer.quietLoad(new File("env_config"))).thenReturn(config);
+    }
+
+    private void expectUserHomeConfig(Config config) {
+        File configFile = new File(System.getProperty("user.home"), ConfigLoader.GLOBAL_CONFIG_NAME);
+        when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 }
