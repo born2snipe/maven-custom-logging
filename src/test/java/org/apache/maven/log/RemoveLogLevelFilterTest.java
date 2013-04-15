@@ -54,6 +54,6 @@ public class RemoveLogLevelFilterTest {
     private LogEntryFilter.Context context(Level level, String text, boolean removeLogLevel) {
         Config config = new Config();
         config.setRemoveLogLevel(removeLogLevel);
-        return new LogEntryFilter.Context(level, "[" + text + "] ", config);
+        return new LogEntryFilter.Context(level, "[" + text + "] ", config, false);
     }
 }

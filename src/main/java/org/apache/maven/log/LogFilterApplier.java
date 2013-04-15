@@ -46,7 +46,7 @@ public class LogFilterApplier {
 
         for (LogEntryFilter filter : filters) {
             LogEntryFilter.Context context = new LogEntryFilter.Context(
-                    level, result, config
+                    level, result, config, displayDebugInfo
             );
             result = filter.filter(context);
 

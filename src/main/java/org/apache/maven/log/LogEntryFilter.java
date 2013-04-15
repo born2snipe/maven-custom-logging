@@ -23,11 +23,13 @@ public interface LogEntryFilter {
         public final Level level;
         public final String entryText;
         public final Config config;
+        public final boolean debug;
 
-        public Context(Level level, String entryText, Config config) {
+        public Context(Level level, String entryText, Config config, boolean debug) {
             this.level = level;
             this.entryText = entryText;
             this.config = config;
+            this.debug = debug;
         }
     }
 }

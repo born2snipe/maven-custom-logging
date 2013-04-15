@@ -45,6 +45,6 @@ public class AddTimestampFilterTest {
     private LogEntryFilter.Context context(String entry, String datePattern) {
         Config config = new Config();
         config.setTimestampPattern(datePattern);
-        return new LogEntryFilter.Context(null, entry, config);
+        return new LogEntryFilter.Context(null, entry, config, false);
     }
 }

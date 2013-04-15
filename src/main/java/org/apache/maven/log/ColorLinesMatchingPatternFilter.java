@@ -15,12 +15,8 @@
 package org.apache.maven.log;
 
 import org.apache.maven.log.config.LinePatternColoringConfig;
-import org.codehaus.plexus.util.StringUtils;
-import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 import org.openide.util.lookup.ServiceProvider;
-
-import java.lang.reflect.Field;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -34,29 +30,31 @@ public class ColorLinesMatchingPatternFilter implements LogEntryFilter {
     public String filter(Context context) {
         for (LinePatternColoringConfig coloring : context.config.getColoring()) {
             if (isMatch(context, coloring)) {
-                return ansi().render(
+                String result = ansi().render(
                         context.entryText.replaceAll(coloring.getPattern(), coloring.getRender())
                 ).toString();
+
+                if (context.debug) {
+                    logDebugInfo(context, coloring, result);
+                }
+
+                return result;
             }
         }
         return context.entryText;
     }
 
-    private boolean isMatch(Context context, LinePatternColoringConfig coloring) {
-        return context.entryText.matches(coloring.getPattern());
+    private void logDebugInfo(Context context, LinePatternColoringConfig coloring, String result) {
+        System.out.println("===============================");
+        System.out.println("pattern: [" + coloring.getPattern() + "]");
+        System.out.println("render: [" + coloring.getRender() + "]");
+        System.out.println("before: [" + context.entryText + "]");
+        System.out.println("after: [" + result + "]");
+        System.out.println("===============================");
     }
 
-    private Ansi.Color getColorOf(String colorName) {
-        try {
-            if (colorName == null) {
-                return null;
-            }
-            Field field = Ansi.Color.class.getField(colorName.toUpperCase());
-            field.setAccessible(true);
-            return (Ansi.Color) field.get(Ansi.Color.class);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private boolean isMatch(Context context, LinePatternColoringConfig coloring) {
+        return context.entryText.matches(coloring.getPattern());
     }
 
 }
