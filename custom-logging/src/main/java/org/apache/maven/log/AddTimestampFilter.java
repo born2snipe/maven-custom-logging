@@ -14,7 +14,7 @@
 
 package org.apache.maven.log;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.openide.util.lookup.ServiceProvider;
 
 import java.text.SimpleDateFormat;

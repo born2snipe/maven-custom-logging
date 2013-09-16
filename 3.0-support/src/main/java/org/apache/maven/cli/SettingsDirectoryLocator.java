@@ -11,21 +11,17 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
+package org.apache.maven.cli;
 
-package org.apache.maven.log;
-
+import org.apache.maven.log.config.GlobalSettingsLocator;
 import org.openide.util.lookup.ServiceProvider;
 
-@ServiceProvider(service = LogEntryFilter.class, position = Integer.MAX_VALUE)
-public class RemoveLogLevelFilter implements LogEntryFilter {
+import java.io.File;
+
+@ServiceProvider(service = GlobalSettingsLocator.class)
+public class SettingsDirectoryLocator implements GlobalSettingsLocator {
     @Override
-    public String filter(Context context) {
-        if (context.config.isRemoveLogLevel()) {
-            String text = context.entryText;
-            text = text.replace("["+context.level.text+"] ", "");
-            text = text.replace("["+context.level.text.toLowerCase()+"] ", "");
-            return text;
-        }
-        return context.entryText;
+    public File locateSettingsDirectory() {
+        return MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile();
     }
 }

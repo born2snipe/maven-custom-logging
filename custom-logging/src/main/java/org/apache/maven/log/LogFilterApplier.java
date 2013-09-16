@@ -14,9 +14,9 @@
 
 package org.apache.maven.log;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.log.config.Config;
 import org.apache.maven.log.config.ConfigLoader;
-import org.codehaus.plexus.util.StringUtils;
 import org.openide.util.Lookup;
 
 import java.util.Collection;

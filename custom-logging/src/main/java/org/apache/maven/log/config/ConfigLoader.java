@@ -14,9 +14,9 @@
 
 package org.apache.maven.log.config;
 
-import org.apache.maven.cli.MavenCli;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.log.EnvAccessor;
-import org.codehaus.plexus.util.StringUtils;
+import org.openide.util.Lookup;
 
 import java.io.File;
 
@@ -78,7 +78,8 @@ public class ConfigLoader {
     }
 
     public Config loadGlobalConfigFile(boolean debug) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), CONFIG_FILENAME);
+        GlobalSettingsLocator locator = Lookup.getDefault().lookup(GlobalSettingsLocator.class);
+        File configFile = new File(locator.locateSettingsDirectory(), CONFIG_FILENAME);
         Config config = configSerializer.quietLoad(configFile);
         if (config != null && debug) System.out.println("Global config file: " + configFile);
         return config;

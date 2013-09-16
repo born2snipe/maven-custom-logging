@@ -14,21 +14,21 @@
 
 package org.apache.maven.log;
 
-import org.apache.maven.cli.MavenCli;
 import org.apache.maven.log.config.Config;
 import org.apache.maven.log.config.ConfigLoader;
 import org.apache.maven.log.config.ConfigSerializer;
+import org.apache.maven.log.config.GlobalSettingsLocator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.openide.util.Lookup;
 
 import java.io.File;
 
 import static org.apache.maven.log.LogFilterApplier.OFF_SWITCH;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -158,7 +158,9 @@ public class LogFilterApplierTest {
     }
 
     private void expectGlobalConfig(Config config) {
-        File configFile = new File(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile(), ConfigLoader.CONFIG_FILENAME);
+        GlobalSettingsLocator locator = Lookup.getDefault().lookup(GlobalSettingsLocator.class);
+        assertNotNull("we should always have a global settings locator in our classpath", locator);
+        File configFile = new File(locator.locateSettingsDirectory(), ConfigLoader.CONFIG_FILENAME);
         when(serializer.quietLoad(configFile)).thenReturn(config);
     }
 
