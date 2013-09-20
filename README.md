@@ -10,7 +10,7 @@ This is a maven extension that allows some customization of the maven console ou
 
 ## Setup
 - Clone the project and build using Maven
-- Copy the JAR `maven-custom-logging.jar` to your `$MAVEN_HOME/lib/ext` directory
+- Copy the JAR from 3.0 or 3.1 support `target` folder to your `$MAVEN_HOME/lib/ext` directory
 - Run any maven build you would like and you should see some colors!
 
 ## How to use my own configuration?
@@ -43,7 +43,7 @@ There are 4 different ways for you to supply a custom configuration file:
 ## Maven versions Tested and working
   - [x] 3.0.4
   - [x] 3.0.5
-
+  - [X] 3.1.0
 
 
 
