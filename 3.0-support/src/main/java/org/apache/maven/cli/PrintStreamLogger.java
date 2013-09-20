@@ -15,7 +15,6 @@
 package org.apache.maven.cli;
 
 import org.apache.maven.Maven;
-import org.apache.maven.log.Level;
 import org.apache.maven.log.LogFilterApplier;
 import org.codehaus.plexus.logging.AbstractLogger;
 import org.codehaus.plexus.logging.Logger;
@@ -104,7 +103,7 @@ public class PrintStreamLogger extends AbstractLogger {
 
         String textToBeLogged = levelName + message;
 
-        Level level = Level.valueFromLogText(levelName);
+        MavenLevel level = MavenLevel.valueFromLogText(levelName);
 
         textToBeLogged = logFilterApplier.apply(textToBeLogged, level);
 

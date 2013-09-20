@@ -20,12 +20,12 @@ public interface LogEntryFilter {
     String filter(Context context);
 
     public static class Context {
-        public final Level level;
+        public final LogLevel level;
         public final String entryText;
         public final Config config;
         public final boolean debug;
 
-        public Context(Level level, String entryText, Config config, boolean debug) {
+        public Context(LogLevel level, String entryText, Config config, boolean debug) {
             this.level = level;
             this.entryText = entryText;
             this.config = config;

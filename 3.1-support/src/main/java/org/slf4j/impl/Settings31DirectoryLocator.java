@@ -11,32 +11,18 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
+package org.slf4j.impl;
 
-package org.apache.maven.log;
+import org.apache.maven.cli.MavenCli;
+import org.apache.maven.log.config.GlobalSettingsLocator;
+import org.openide.util.lookup.ServiceProvider;
 
-public enum Level {
-    DEBUG("DEBUG"),
-    INFO("INFO"),
-    WARN("WARNING"),
-    ERROR("ERROR"),
-    FATAL("FATAL"),
-    DISABLED("");
+import java.io.File;
 
-    public final String text;
-
-    private Level(String text) {
-        this.text = text;
-    }
-
-    public static Level valueOf(int level) {
-        return values()[level];
-    }
-
-    public static Level valueFromLogText(String logText) {
-        for (Level level : values()) {
-            if (logText.startsWith("[" + level.text + "]"))
-                return level;
-        }
-        return null;
+@ServiceProvider(service = GlobalSettingsLocator.class)
+public class Settings31DirectoryLocator implements GlobalSettingsLocator {
+    @Override
+    public File locateSettingsDirectory() {
+        return MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE.getParentFile();
     }
 }

@@ -32,7 +32,7 @@ public class LogFilterApplier {
         filters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
     }
 
-    public String apply(String text, Level level) {
+    public String apply(String text, LogLevel level) {
         if (System.getProperties().containsKey(OFF_SWITCH)) {
             return text;
         }

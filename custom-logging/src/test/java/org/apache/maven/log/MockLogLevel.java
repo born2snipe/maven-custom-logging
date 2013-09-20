@@ -11,21 +11,13 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-
 package org.apache.maven.log;
 
-import org.openide.util.lookup.ServiceProvider;
+public enum MockLogLevel implements LogLevel {
+    INFO;
 
-@ServiceProvider(service = LogEntryFilter.class, position = Integer.MAX_VALUE)
-public class RemoveLogLevelFilter implements LogEntryFilter {
     @Override
-    public String filter(Context context) {
-        if (context.config.isRemoveLogLevel()) {
-            String text = context.entryText;
-            text = text.replace("[" + context.level.text() + "] ", "");
-            text = text.replace("[" + context.level.text().toLowerCase() + "] ", "");
-            return text;
-        }
-        return context.entryText;
+    public String text() {
+        return "INFO";
     }
 }

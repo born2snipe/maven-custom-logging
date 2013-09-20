@@ -14,6 +14,7 @@
 
 package org.apache.maven.log;
 
+import org.apache.maven.cli.MavenLevel;
 import org.codehaus.plexus.logging.Logger;
 import org.junit.Test;
 
@@ -21,16 +22,16 @@ import java.lang.reflect.Field;
 
 import static junit.framework.Assert.assertEquals;
 
-public class LevelTest {
+public class MavenLevelTest {
     @Test
     public void levelOrdinalShouldMatchLoggerConstantsValues() {
-        for (Level level : Level.values()) {
+        for (MavenLevel level : MavenLevel.values()) {
             int expectedValue = getContantValueOf(level);
             assertEquals(level + "'s ordinal is wrong", expectedValue, level.ordinal());
         }
     }
 
-    private int getContantValueOf(Level level) {
+    private int getContantValueOf(MavenLevel level) {
         try {
             Field field = Logger.class.getField("LEVEL_" + level.name());
             field.setAccessible(true);

@@ -19,6 +19,7 @@
 
     <modules>
         <module>3.0-support</module>
+        <module>3.1-support</module>
         <module>custom-logging</module>
     </modules>
 
