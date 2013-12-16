@@ -47,6 +47,6 @@ There are 4 different ways for you to supply a custom configuration file:
 
 
 
-  [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/src/main/resources/config/default.yml "sample"
+  [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/custom-logging/src/main/resources/config/default.yml "sample"
   [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
   [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"
