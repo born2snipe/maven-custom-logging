@@ -42,6 +42,8 @@ public class LogFilterApplierTest {
 
     @Before
     public void setUp() throws Exception {
+        LogFilterApplier.reset();
+
         applier = new LogFilterApplier();
         applier.setConfigLoader(new ConfigLoader(serializer, envAccessor));
 

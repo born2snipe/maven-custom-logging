@@ -26,7 +26,11 @@ public class LogFilterApplier {
     public static final String DEBUG_SWITCH = "custom.logging.debug";
     private ConfigLoader configLoader = new ConfigLoader();
     private Collection<? extends LogEntryFilter> filters;
-    private Config config;
+    private static Config config;
+
+    static void reset() {
+       config = null;
+    }
 
     public LogFilterApplier() {
         filters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
