@@ -2,7 +2,7 @@
 
 This is a maven extension that allows some customization of the maven console output.
 
-![sample output](http://i.imgur.com/yYa5Ocv)
+![sampleoutput](http://i.imgur.com/yYa5Ocv)
 
 ## Features
 - Remove the log threshold from the output (ie. `[INFO]`)
