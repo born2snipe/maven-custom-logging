@@ -308,7 +308,7 @@ public class SimpleLogger extends MarkerIgnoringBase {
 
         if (logFilterApplier.showDebugInfo()) System.out.println("PrintStream used for logging: " + TARGET_STREAM);
 
-        String filteredOutput = logFilterApplier.apply(buf.toString(), new Slf4jLogLevel(level));
+        String filteredOutput = logFilterApplier.apply(buf.toString(), Slf4jLogLevel.toString(level));
 
         if (StringUtils.isNotBlank(filteredOutput)) {
             write(new StringBuffer(filteredOutput), t);

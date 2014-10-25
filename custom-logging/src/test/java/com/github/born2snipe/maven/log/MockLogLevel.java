@@ -13,13 +13,7 @@
  */
 package com.github.born2snipe.maven.log;
 
-import com.github.born2snipe.maven.log.LogLevel;
-
-public enum MockLogLevel implements LogLevel {
+public enum MockLogLevel {
     INFO;
 
-    @Override
-    public String text() {
-        return "INFO";
-    }
 }

@@ -30,30 +30,30 @@ public class RemoveLogLevelFilterTest {
 
     @Test
     public void shouldNotCareAboutCase() {
-        assertEquals("", filter.filter(context(MockLogLevel.INFO, "info", true)));
+        assertEquals("", filter.filter(context("info", true, MockLogLevel.INFO.name())));
     }
 
     @Test
     public void removeLeadingScopeText() {
         for (MockLogLevel level : MockLogLevel.values()) {
-            assertEquals("", filter.filter(context(level, true)));
+            assertEquals("", filter.filter(context(true, level.name())));
         }
     }
 
     @Test
     public void doNotThingWithTheFlagIsFalse() {
         for (MockLogLevel level : MockLogLevel.values()) {
-            assertEquals("[" + level.text() + "] ", filter.filter(context(level, false)));
+            assertEquals("[" + level.name() + "] ", filter.filter(context(false, level.name())));
         }
     }
 
-    private LogEntryFilter.Context context(MockLogLevel level, boolean removeLogLevel) {
-        return context(level, level.text(), removeLogLevel);
+    private LogEntryFilter.Context context(boolean removeLogLevel, String logLevel) {
+        return context(logLevel, removeLogLevel, logLevel);
     }
 
-    private LogEntryFilter.Context context(MockLogLevel level, String text, boolean removeLogLevel) {
+    private LogEntryFilter.Context context(String text, boolean removeLogLevel, String logLevel) {
         Config config = new Config();
         config.setRemoveLogLevel(removeLogLevel);
-        return new LogEntryFilter.Context(level, "[" + text + "] ", config, false);
+        return new LogEntryFilter.Context("[" + text + "] ", config, false, logLevel);
     }
 }

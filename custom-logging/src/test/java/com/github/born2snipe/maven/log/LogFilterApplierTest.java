@@ -61,14 +61,14 @@ public class LogFilterApplierTest {
         System.setProperty(OFF_SWITCH, "");
         config.setRemoveLogLevel(true);
 
-        assertEquals("[INFO] text", applier.apply("[INFO] text", MockLogLevel.INFO));
+        assertEquals("[INFO] text", applier.apply("[INFO] text", MockLogLevel.INFO.name()));
     }
 
     @Test
     public void shouldNotAttemptToLoadSystemPropertyConfigFileWhenNoValueIsGiven() {
         expectSystemPropertyConfig(null);
 
-        applier.apply("[INFO] test", MockLogLevel.INFO);
+        applier.apply("[INFO] test", MockLogLevel.INFO.name());
 
         verify(serializer, never()).load(new File(""));
     }
@@ -80,7 +80,7 @@ public class LogFilterApplierTest {
         expectEnvConfig(config);
         expectGlobalConfig(new Config());
 
-        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO));
+        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO.name()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class LogFilterApplierTest {
         expectGlobalConfig(new Config());
         expectEnvConfig(new Config());
 
-        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO));
+        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO.name()));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class LogFilterApplierTest {
         expectUserHomeConfig(globalConfig);
         expectGlobalConfig(new Config());
 
-        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO));
+        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO.name()));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class LogFilterApplierTest {
         globalConfig.setRemoveLogLevel(true);
         expectGlobalConfig(globalConfig);
 
-        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO));
+        assertEquals("test", applier.apply("[INFO] test", MockLogLevel.INFO.name()));
     }
 
     @Test
@@ -119,14 +119,14 @@ public class LogFilterApplierTest {
         ClearLineFilter.clearLine = true;
         config.setTimestampPattern("yyyy/MM/dd");
 
-        assertEquals("", applier.apply("[INFO] test", MockLogLevel.INFO));
+        assertEquals("", applier.apply("[INFO] test", MockLogLevel.INFO.name()));
     }
 
     @Test
     public void shouldNotAddTimestampToBlankLines() {
         config.setTimestampPattern("yyyy/MM/dd");
 
-        assertEquals("", applier.apply("", MockLogLevel.INFO));
+        assertEquals("", applier.apply("", MockLogLevel.INFO.name()));
     }
 
     @Test
@@ -134,19 +134,19 @@ public class LogFilterApplierTest {
         config.setRemoveLogLevel(true);
         config.setTimestampPattern("yyyy/MM/dd");
 
-        assertTrue(applier.apply("[INFO] text", MockLogLevel.INFO).matches("[0-9]{4}/[0-9]{2}/[0-9]{2} text"));
+        assertTrue(applier.apply("[INFO] text", MockLogLevel.INFO.name()).matches("[0-9]{4}/[0-9]{2}/[0-9]{2} text"));
     }
 
     @Test
     public void configuredToRemoveLogLevel() {
         config.setRemoveLogLevel(true);
 
-        assertEquals("text", applier.apply("[INFO] text", MockLogLevel.INFO));
+        assertEquals("text", applier.apply("[INFO] text", MockLogLevel.INFO.name()));
     }
 
     @Test
     public void nothingIsConfigured() {
-        assertEquals("[INFO] text", applier.apply("[INFO] text", MockLogLevel.INFO));
+        assertEquals("[INFO] text", applier.apply("[INFO] text", MockLogLevel.INFO.name()));
     }
 
     private void expectSystemPropertyConfig(Config config) {

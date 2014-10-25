@@ -13,13 +13,11 @@
  */
 package org.slf4j.impl;
 
-import com.github.born2snipe.maven.log.LogLevel;
 import org.slf4j.spi.LocationAwareLogger;
 
-public class Slf4jLogLevel implements LogLevel {
-    private String text;
-
-    public Slf4jLogLevel(int level) {
+public class Slf4jLogLevel {
+    public static String toString(int level) {
+        String text = "";
         switch (level) {
             case LocationAwareLogger.TRACE_INT:
                 text = "TRACE";
@@ -39,10 +37,7 @@ public class Slf4jLogLevel implements LogLevel {
             default:
                 throw new IllegalArgumentException("Not sure what log level this is (level=" + level + ")");
         }
-    }
 
-    @Override
-    public String text() {
         return text;
     }
 }

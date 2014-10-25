@@ -36,7 +36,7 @@ public class LogFilterApplier {
         filters = Lookup.getDefault().lookupAll(LogEntryFilter.class);
     }
 
-    public String apply(String text, LogLevel level) {
+    public String apply(String text, String logLevel) {
         if (System.getProperties().containsKey(OFF_SWITCH)) {
             return text;
         }
@@ -50,7 +50,7 @@ public class LogFilterApplier {
 
         for (LogEntryFilter filter : filters) {
             LogEntryFilter.Context context = new LogEntryFilter.Context(
-                    level, result, config, displayDebugInfo
+                    result, config, displayDebugInfo, logLevel
             );
             result = filter.filter(context);
 

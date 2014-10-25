@@ -21,19 +21,16 @@ import static junit.framework.TestCase.assertEquals;
 public class Slf4jLogLevelTest {
     @Test(expected = IllegalArgumentException.class)
     public void unsupportedLevel() {
-        new Slf4jLogLevel(Integer.MAX_VALUE);
+        Slf4jLogLevel.toString(Integer.MAX_VALUE);
     }
 
     @Test
     public void levels() {
-        assertLevel("TRACE", LocationAwareLogger.TRACE_INT);
-        assertLevel("DEBUG", LocationAwareLogger.DEBUG_INT);
-        assertLevel("INFO", LocationAwareLogger.INFO_INT);
-        assertLevel("WARN", LocationAwareLogger.WARN_INT);
-        assertLevel("ERROR", LocationAwareLogger.ERROR_INT);
+        assertEquals("TRACE", Slf4jLogLevel.toString(LocationAwareLogger.TRACE_INT));
+        assertEquals("DEBUG", Slf4jLogLevel.toString(LocationAwareLogger.DEBUG_INT));
+        assertEquals("INFO",  Slf4jLogLevel.toString(LocationAwareLogger.INFO_INT));
+        assertEquals("WARN",  Slf4jLogLevel.toString(LocationAwareLogger.WARN_INT));
+        assertEquals("ERROR", Slf4jLogLevel.toString(LocationAwareLogger.ERROR_INT));
     }
 
-    private void assertLevel(String expectedText, int slf4jLevel) {
-        assertEquals(expectedText, new Slf4jLogLevel(slf4jLevel).text());
-    }
 }

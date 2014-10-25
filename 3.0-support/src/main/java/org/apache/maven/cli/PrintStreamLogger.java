@@ -105,7 +105,7 @@ public class PrintStreamLogger extends AbstractLogger {
 
         MavenLevel level = MavenLevel.valueFromLogText(levelName);
 
-        textToBeLogged = logFilterApplier.apply(textToBeLogged, level);
+        textToBeLogged = logFilterApplier.apply(textToBeLogged, level.text());
 
         if (StringUtils.isNotBlank(textToBeLogged)) {
             out.println(textToBeLogged);

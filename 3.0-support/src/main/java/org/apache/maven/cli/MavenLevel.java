@@ -14,9 +14,7 @@
 
 package org.apache.maven.cli;
 
-import com.github.born2snipe.maven.log.LogLevel;
-
-public enum MavenLevel implements LogLevel {
+public enum MavenLevel {
     DEBUG("DEBUG"),
     INFO("INFO"),
     WARN("WARNING"),
@@ -38,7 +36,6 @@ public enum MavenLevel implements LogLevel {
         return null;
     }
 
-    @Override
     public String text() {
         return text;
     }

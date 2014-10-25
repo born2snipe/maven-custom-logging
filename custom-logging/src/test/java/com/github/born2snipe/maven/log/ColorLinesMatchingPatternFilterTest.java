@@ -89,7 +89,7 @@ public class ColorLinesMatchingPatternFilterTest {
     }
 
     private LogEntryFilter.Context context(Config config, String text) {
-        return new LogEntryFilter.Context(null, text, config, false);
+        return new LogEntryFilter.Context(text, config, false, null);
     }
 
     private Config config(LinePatternColoringConfig... colorConfigs) {

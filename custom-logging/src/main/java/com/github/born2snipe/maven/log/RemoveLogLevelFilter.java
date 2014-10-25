@@ -22,8 +22,8 @@ public class RemoveLogLevelFilter implements LogEntryFilter {
     public String filter(Context context) {
         if (context.config.isRemoveLogLevel()) {
             String text = context.entryText;
-            text = text.replace("[" + context.level.text() + "] ", "");
-            text = text.replace("[" + context.level.text().toLowerCase() + "] ", "");
+            text = text.replace("[" + context.logLevel + "] ", "");
+            text = text.replace("[" + context.logLevel.toLowerCase() + "] ", "");
             return text;
         }
         return context.entryText;
