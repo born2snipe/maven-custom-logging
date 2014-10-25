@@ -1,2 +1,5 @@
 target
 *.i*
+
+# shade plugin is leaving this file behind...
+dependency-reduced-pom.xml
