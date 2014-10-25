@@ -14,9 +14,9 @@
 
 package com.github.born2snipe.maven.log;
 
-import org.apache.commons.lang.StringUtils;
 import com.github.born2snipe.maven.log.config.Config;
 import com.github.born2snipe.maven.log.config.ConfigLoader;
+import org.apache.commons.lang.StringUtils;
 import org.openide.util.Lookup;
 
 import java.util.Collection;

@@ -21,6 +21,7 @@
         <module>3.0-support</module>
         <module>3.1-support</module>
         <module>custom-logging</module>
+        <module>agent</module>
     </modules>
 
     <build>
@@ -159,6 +160,7 @@
                                             <include>org.openide.**</include>
                                             <include>org.netbeans.**</include>
                                             <include>org.fusesource.**</include>
+                                            <include>org.objectweb.**</include>
                                         </includes>
                                     </relocation>
                                     <relocation>
@@ -173,21 +175,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <archive>
-                            <manifestEntries>
-                                <Version>${build-commit}</Version>
-                                <Built-On>${build-tstamp}</Built-On>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
-                </plugin>
-
             </plugins>
         </pluginManagement>
 
