@@ -121,7 +121,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>2.3</version>
                     <configuration>
                         <createDependencyReducedPom>true</createDependencyReducedPom>
                         <filters>
@@ -150,6 +150,25 @@
                                         <resource>config/default.yml</resource>
                                     </transformer>
                                 </transformers>
+                                <relocations>
+                                    <relocation>
+                                        <pattern>org</pattern>
+                                        <shadedPattern>shaded.org</shadedPattern>
+                                        <includes>
+                                            <include>org.apache.commons.lang.**</include>
+                                            <include>org.openide.**</include>
+                                            <include>org.netbeans.**</include>
+                                            <include>org.fusesource.**</include>
+                                        </includes>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>com</pattern>
+                                        <shadedPattern>shaded.com</shadedPattern>
+                                        <includes>
+                                            <include>com.fasterxml.**</include>
+                                        </includes>
+                                    </relocation>
+                                </relocations>
                             </configuration>
                         </execution>
                     </executions>
