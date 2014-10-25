@@ -12,19 +12,20 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log.config;
 
-import org.openide.util.lookup.ServiceProvider;
+import com.github.born2snipe.maven.log.config.Config;
+import com.github.born2snipe.maven.log.config.ConfigSerializer;
+import org.junit.Test;
 
-@ServiceProvider(service = LogEntryFilter.class, position = Integer.MIN_VALUE)
-public class ClearLineFilter implements LogEntryFilter {
-    public static boolean clearLine = false;
+import java.io.IOException;
 
-    @Override
-    public String filter(Context context) {
-        if (clearLine) {
-            return "";
-        }
-        return context.entryText;
+import static junit.framework.Assert.assertNotNull;
+
+public class DefaultSettingsTest {
+    @Test
+    public void canParseSuccessfully() throws IOException {
+        Config config = new ConfigSerializer().load("config/default.yml");
+        assertNotNull(config);
     }
 }

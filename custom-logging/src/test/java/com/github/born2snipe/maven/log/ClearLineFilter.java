@@ -12,10 +12,20 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log;
 
-public class EnvAccessor {
-    public String get(String key) {
-        return System.getenv(key);
+import com.github.born2snipe.maven.log.LogEntryFilter;
+import org.openide.util.lookup.ServiceProvider;
+
+@ServiceProvider(service = LogEntryFilter.class, position = Integer.MIN_VALUE)
+public class ClearLineFilter implements LogEntryFilter {
+    public static boolean clearLine = false;
+
+    @Override
+    public String filter(Context context) {
+        if (clearLine) {
+            return "";
+        }
+        return context.entryText;
     }
 }

@@ -12,20 +12,25 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log.config;
 
-import org.openide.util.lookup.ServiceProvider;
+public class LinePatternColoringConfig {
+    private String pattern;
+    private String render;
 
-@ServiceProvider(service = LogEntryFilter.class, position = Integer.MAX_VALUE)
-public class RemoveLogLevelFilter implements LogEntryFilter {
-    @Override
-    public String filter(Context context) {
-        if (context.config.isRemoveLogLevel()) {
-            String text = context.entryText;
-            text = text.replace("[" + context.level.text() + "] ", "");
-            text = text.replace("[" + context.level.text().toLowerCase() + "] ", "");
-            return text;
-        }
-        return context.entryText;
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
+    public String getRender() {
+        return render;
+    }
+
+    public void setRender(String render) {
+        this.render = render;
     }
 }

@@ -13,7 +13,7 @@
  */
 package org.apache.maven.cli;
 
-import org.apache.maven.log.config.GlobalSettingsLocator;
+import com.github.born2snipe.maven.log.config.GlobalSettingsLocator;
 import org.openide.util.lookup.ServiceProvider;
 
 import java.io.File;

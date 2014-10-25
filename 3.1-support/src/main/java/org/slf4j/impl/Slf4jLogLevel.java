@@ -13,7 +13,7 @@
  */
 package org.slf4j.impl;
 
-import org.apache.maven.log.LogLevel;
+import com.github.born2snipe.maven.log.LogLevel;
 import org.slf4j.spi.LocationAwareLogger;
 
 public class Slf4jLogLevel implements LogLevel {

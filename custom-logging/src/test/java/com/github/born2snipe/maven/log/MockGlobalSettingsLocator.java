@@ -11,10 +11,17 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package org.apache.maven.log.config;
+package com.github.born2snipe.maven.log;
+
+import com.github.born2snipe.maven.log.config.GlobalSettingsLocator;
+import org.openide.util.lookup.ServiceProvider;
 
 import java.io.File;
 
-public interface GlobalSettingsLocator {
-    File locateSettingsDirectory();
+@ServiceProvider(service = GlobalSettingsLocator.class)
+public class MockGlobalSettingsLocator implements GlobalSettingsLocator {
+    @Override
+    public File locateSettingsDirectory() {
+        return new File("C:/temp");
+    }
 }

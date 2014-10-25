@@ -11,19 +11,15 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
+package com.github.born2snipe.maven.log;
 
-package org.apache.maven.log.config;
+import com.github.born2snipe.maven.log.LogLevel;
 
-import org.junit.Test;
+public enum MockLogLevel implements LogLevel {
+    INFO;
 
-import java.io.IOException;
-
-import static junit.framework.Assert.assertNotNull;
-
-public class DefaultSettingsTest {
-    @Test
-    public void canParseSuccessfully() throws IOException {
-        Config config = new ConfigSerializer().load("config/default.yml");
-        assertNotNull(config);
+    @Override
+    public String text() {
+        return "INFO";
     }
 }

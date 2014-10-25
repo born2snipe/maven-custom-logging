@@ -11,25 +11,8 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
+package com.github.born2snipe.maven.log;
 
-package org.apache.maven.log;
-
-import org.apache.maven.log.config.Config;
-
-public interface LogEntryFilter {
-    String filter(Context context);
-
-    public static class Context {
-        public final LogLevel level;
-        public final String entryText;
-        public final Config config;
-        public final boolean debug;
-
-        public Context(LogLevel level, String entryText, Config config, boolean debug) {
-            this.level = level;
-            this.entryText = entryText;
-            this.config = config;
-            this.debug = debug;
-        }
-    }
+public interface LogLevel {
+    String text();
 }

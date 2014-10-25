@@ -11,8 +11,10 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and limitations under the License.
  */
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log.config;
 
-public interface LogLevel {
-    String text();
+import java.io.File;
+
+public interface GlobalSettingsLocator {
+    File locateSettingsDirectory();
 }

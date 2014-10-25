@@ -12,10 +12,10 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log.config;
+package com.github.born2snipe.maven.log.config;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.maven.log.EnvAccessor;
+import com.github.born2snipe.maven.log.EnvAccessor;
 import org.openide.util.Lookup;
 
 import java.io.File;

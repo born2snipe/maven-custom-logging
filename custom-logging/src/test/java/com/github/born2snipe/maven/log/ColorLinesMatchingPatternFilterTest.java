@@ -12,10 +12,10 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log;
 
-import org.apache.maven.log.config.Config;
-import org.apache.maven.log.config.LinePatternColoringConfig;
+import com.github.born2snipe.maven.log.config.Config;
+import com.github.born2snipe.maven.log.config.LinePatternColoringConfig;
 import org.junit.Before;
 import org.junit.Test;
 

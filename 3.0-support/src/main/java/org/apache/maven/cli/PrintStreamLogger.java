@@ -15,7 +15,7 @@
 package org.apache.maven.cli;
 
 import org.apache.maven.Maven;
-import org.apache.maven.log.LogFilterApplier;
+import com.github.born2snipe.maven.log.LogFilterApplier;
 import org.codehaus.plexus.logging.AbstractLogger;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.StringUtils;

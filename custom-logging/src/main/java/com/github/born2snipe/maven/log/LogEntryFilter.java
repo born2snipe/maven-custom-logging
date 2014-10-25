@@ -12,25 +12,24 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log.config;
+package com.github.born2snipe.maven.log;
 
-public class LinePatternColoringConfig {
-    private String pattern;
-    private String render;
+import com.github.born2snipe.maven.log.config.Config;
 
-    public String getPattern() {
-        return pattern;
-    }
+public interface LogEntryFilter {
+    String filter(Context context);
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
+    public static class Context {
+        public final LogLevel level;
+        public final String entryText;
+        public final Config config;
+        public final boolean debug;
 
-    public String getRender() {
-        return render;
-    }
-
-    public void setRender(String render) {
-        this.render = render;
+        public Context(LogLevel level, String entryText, Config config, boolean debug) {
+            this.level = level;
+            this.entryText = entryText;
+            this.config = config;
+            this.debug = debug;
+        }
     }
 }

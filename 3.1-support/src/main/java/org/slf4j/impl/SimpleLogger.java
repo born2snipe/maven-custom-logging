@@ -13,7 +13,7 @@
  */
 package org.slf4j.impl;
 
-import org.apache.maven.log.LogFilterApplier;
+import com.github.born2snipe.maven.log.LogFilterApplier;
 import org.codehaus.plexus.util.StringUtils;
 import org.fusesource.jansi.AnsiConsole;
 import org.slf4j.helpers.FormattingTuple;

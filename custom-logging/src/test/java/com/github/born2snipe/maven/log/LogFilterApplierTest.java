@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package org.apache.maven.log;
+package com.github.born2snipe.maven.log;
 
-import org.apache.maven.log.config.Config;
-import org.apache.maven.log.config.ConfigLoader;
-import org.apache.maven.log.config.ConfigSerializer;
-import org.apache.maven.log.config.GlobalSettingsLocator;
+import com.github.born2snipe.maven.log.config.Config;
+import com.github.born2snipe.maven.log.config.ConfigLoader;
+import com.github.born2snipe.maven.log.config.ConfigSerializer;
+import com.github.born2snipe.maven.log.config.GlobalSettingsLocator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 
-import static org.apache.maven.log.LogFilterApplier.OFF_SWITCH;
+import static com.github.born2snipe.maven.log.LogFilterApplier.OFF_SWITCH;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

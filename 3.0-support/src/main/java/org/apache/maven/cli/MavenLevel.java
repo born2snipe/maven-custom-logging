@@ -14,7 +14,7 @@
 
 package org.apache.maven.cli;
 
-import org.apache.maven.log.LogLevel;
+import com.github.born2snipe.maven.log.LogLevel;
 
 public enum MavenLevel implements LogLevel {
     DEBUG("DEBUG"),
