@@ -22,7 +22,7 @@ import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 
-public class ChangeMavenLogger {
+public class SurefirePluginAgent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         inst.addTransformer(new ReplaceMavenLoggerWithAnsiLogger());

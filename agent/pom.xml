@@ -50,7 +50,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Premain-Class>com.github.born2snipe.maven.log.agent.ChangeMavenLogger</Premain-Class>
+                            <Premain-Class>com.github.born2snipe.maven.log.agent.SurefirePluginAgent</Premain-Class>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                         </manifestEntries>
                     </archive>
