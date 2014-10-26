@@ -20,26 +20,20 @@ import java.io.File;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class TestExecutor {
     public static void execute(File folder) {
-        PrintStream noOp = new NoOpPrintStream();
-//        PrintStream noOp = System.out;
-        try {
-            ProjectExtractor.extract(folder);
-            MavenCli cli = new MavenCli();
-            int result = cli.doMain(
-                    new String[]{"test"},
-                    folder.getAbsolutePath(),
-                    noOp, noOp);
+//        PrintStream noOp = new NoOpPrintStream();
+        PrintStream noOp = System.out;
+        ProjectExtractor.extract(folder);
 
-            assertEquals(0, result);
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            fail();
-        }
+        MavenCli cli = new MavenCli();
+        int result = cli.doMain(
+                new String[]{"test"},
+                folder.getAbsolutePath(),
+                noOp, noOp);
 
+        assertEquals(0, result);
     }
 
     private static class NoOpPrintStream extends PrintStream {
