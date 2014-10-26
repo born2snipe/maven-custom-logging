@@ -318,7 +318,7 @@ public class SimpleLogger extends MarkerIgnoringBase {
                     write(logFilterApplier.apply(line, ""), null);
                 }
             });
-            lineServer.start();
+//            lineServer.start();
         }
 
 

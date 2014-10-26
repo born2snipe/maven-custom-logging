@@ -1,0 +1,41 @@
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+         xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd'>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>b2s.maven</groupId>
+        <artifactId>maven-custom-logging-aggregate</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>integration</artifactId>
+    <packaging>pom</packaging>
+    <name>integration</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>test-module</module>
+        <module>3.0.1</module>
+        <module>3.0.2</module>
+        <module>3.0.3</module>
+        <module>3.0.4</module>
+        <module>3.0.5</module>
+        <module>3.1.0</module>
+        <module>3.1.1</module>
+        <module>3.2.1</module>
+        <module>3.2.2</module>
+        <module>3.2.3</module>
+    </modules>
+
+
+</project>
+
