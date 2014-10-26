@@ -23,8 +23,8 @@ import static org.junit.Assert.assertEquals;
 
 public class TestExecutor {
     public static void execute(File folder) {
-//        PrintStream noOp = new NoOpPrintStream();
-        PrintStream noOp = System.out;
+        PrintStream noOp = new NoOpPrintStream();
+//        PrintStream noOp = System.out;
         ProjectExtractor.extract(folder);
 
         MavenCli cli = new MavenCli();
