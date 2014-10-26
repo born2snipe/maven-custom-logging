@@ -16,13 +16,14 @@ package com.github.born2snipe.maven.log.agent.support;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LineServerManager {
-    private static final String PLUGIN_STARTING_PATTERN = ".*? --- .+ ---";
+    protected static int PORT = 36480;
+    private static final String PLUGIN_STARTING_PATTERN = ".*?--- .+ ---";
     private static LineServer server;
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
     public static void manage(String line, final LineProcessor lineProcessor) {
-        if (isSurefirePluginStarting(line)) {
-            server = new LineServer();
+        if (isNotRunningAlready() && isSurefirePluginStarting(line)) {
+            server = new LineServer(PORT);
             server.addListener(new LineListener() {
                 public void lineReceived(String line) {
                     lineProcessor.processLine(line);
@@ -30,10 +31,18 @@ public class LineServerManager {
             });
             server.start();
             running.set(true);
-        } else if (running.get() && isPluginStarting(line)) {
-            running.set(false);
+        } else if (isBuildFinished(line)) {
             server.stop();
+            running.set(false);
         }
+    }
+
+    private static boolean isBuildFinished(String line) {
+        return line.contains("BUILD FAILURE") || line.contains("BUILD SUCCESS");
+    }
+
+    private static boolean isNotRunningAlready() {
+        return !running.get();
     }
 
     private static boolean isSurefirePluginStarting(String line) {

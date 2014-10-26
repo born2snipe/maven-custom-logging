@@ -24,13 +24,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
 public class LineServer {
-    private static final int PORT = 36480;
     private NioSocketAcceptor socketAcceptor;
     private int port;
-
-    public LineServer() {
-        this(PORT);
-    }
 
     public LineServer(int port) {
         this.port = port;
