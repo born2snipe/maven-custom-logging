@@ -43,11 +43,16 @@ There are 4 different ways for you to supply a custom configuration file:
   - Just supply `custom.logging.off` system property and you should see all the original maven output
 
 ## Maven versions Tested and working
+  - [x] 3.0.1
+  - [x] 3.0.2
+  - [x] 3.0.3
   - [x] 3.0.4
   - [x] 3.0.5
   - [X] 3.1.0
   - [X] 3.1.1
   - [X] 3.2.1
+  - [X] 3.2.2
+  - [X] 3.2.3
 
 
 
