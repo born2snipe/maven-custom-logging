@@ -1,5 +1,5 @@
 language: java
-script: mvn test -e
+script: mvn test -X
 jdk:
   - oraclejdk8
 branches:
