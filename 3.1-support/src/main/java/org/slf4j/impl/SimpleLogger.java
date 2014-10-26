@@ -14,6 +14,7 @@
 package org.slf4j.impl;
 
 import com.github.born2snipe.maven.log.LogFilterApplier;
+import com.github.born2snipe.maven.log.agent.support.LineListener;
 import com.github.born2snipe.maven.log.agent.support.LineServerManager;
 import org.codehaus.plexus.util.StringUtils;
 import org.fusesource.jansi.AnsiConsole;
@@ -307,8 +308,8 @@ public class SimpleLogger extends MarkerIgnoringBase {
             TARGET_STREAM = new PrintStream(AnsiConsole.wrapOutputStream(TARGET_STREAM));
         }
 
-        LineServerManager.manage(buf.toString(), new LineServerManager.LineProcessor() {
-            public void processLine(String line) {
+        LineServerManager.manage(buf.toString(), new LineListener() {
+            public void lineReceived(String line) {
                 write(logFilterApplier.apply(line, ""), null);
             }
         });

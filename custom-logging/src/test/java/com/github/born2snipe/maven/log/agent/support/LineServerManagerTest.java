@@ -21,12 +21,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static com.github.born2snipe.maven.log.agent.support.LineServerManager.LineProcessor;
 import static com.github.born2snipe.maven.log.agent.support.LineServerManager.manage;
 import static org.junit.Assert.assertTrue;
 
 public class LineServerManagerTest {
-    private LineProcessor lineProcessor = new NoOpLineProcessor();
+    private LineListener lineProcessor = new NoOpLineListener();
 
     @Before
     public void setUp() throws Exception {
@@ -119,9 +118,9 @@ public class LineServerManagerTest {
         return "BUILD SUCCESS";
     }
 
-    private class NoOpLineProcessor implements LineProcessor {
+    private class NoOpLineListener implements LineListener {
         @Override
-        public void processLine(String line) {
+        public void lineReceived(String line) {
 
         }
     }

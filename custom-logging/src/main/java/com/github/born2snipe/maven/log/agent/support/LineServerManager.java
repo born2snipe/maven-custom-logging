@@ -21,14 +21,10 @@ public class LineServerManager {
     private static LineServer server;
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
-    public static void manage(String line, final LineProcessor lineProcessor) {
+    public static void manage(String line, final LineListener lineListener) {
         if (isNotRunningAlready() && isSurefirePluginStarting(line)) {
             server = new LineServer(PORT);
-            server.addListener(new LineListener() {
-                public void lineReceived(String line) {
-                    lineProcessor.processLine(line);
-                }
-            });
+            server.addListener(lineListener);
             server.start();
             running.set(true);
         } else if (isBuildFinished(line)) {
@@ -51,9 +47,5 @@ public class LineServerManager {
 
     private static boolean isPluginStarting(String line) {
         return line.matches(PLUGIN_STARTING_PATTERN);
-    }
-
-    public static interface LineProcessor {
-        void processLine(String line);
     }
 }
