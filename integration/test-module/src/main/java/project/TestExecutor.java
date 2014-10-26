@@ -36,7 +36,7 @@ public class TestExecutor {
 
             assertEquals(0, result);
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
             fail();
         }
 
