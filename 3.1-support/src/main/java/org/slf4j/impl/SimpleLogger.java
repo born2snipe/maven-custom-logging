@@ -14,8 +14,7 @@
 package org.slf4j.impl;
 
 import com.github.born2snipe.maven.log.LogFilterApplier;
-import com.github.born2snipe.maven.log.agent.support.LineListener;
-import com.github.born2snipe.maven.log.agent.support.LineServer;
+import com.github.born2snipe.maven.log.agent.support.LineServerManager;
 import org.codehaus.plexus.util.StringUtils;
 import org.fusesource.jansi.AnsiConsole;
 import org.slf4j.helpers.FormattingTuple;
@@ -34,8 +33,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
-import static com.github.born2snipe.maven.log.MavenOutputUtil.isBanner;
 
 /**
  * THIS IS A DIRECT COPY FROM THE SLF4J SOURCE CODE, JUST TO GET THE CUSTOM LOGGING WORKING
@@ -87,7 +84,6 @@ public class SimpleLogger extends MarkerIgnoringBase {
 
     public static final String LOG_KEY_PREFIX = SYSTEM_PREFIX + "log.";
     private LogFilterApplier logFilterApplier;
-    private LineServer lineServer;
 
 
     private static String getStringProperty(String name) {
@@ -311,16 +307,11 @@ public class SimpleLogger extends MarkerIgnoringBase {
             TARGET_STREAM = new PrintStream(AnsiConsole.wrapOutputStream(TARGET_STREAM));
         }
 
-        if (isBanner(buf.toString()) && lineServer == null) {
-            lineServer = new LineServer();
-            lineServer.addListener(new LineListener() {
-                public void lineReceived(String line) {
-                    write(logFilterApplier.apply(line, ""), null);
-                }
-            });
-//            lineServer.start();
-        }
-
+        LineServerManager.manage(buf.toString(), new LineServerManager.LineProcessor() {
+            public void processLine(String line) {
+                write(logFilterApplier.apply(line, ""), null);
+            }
+        });
 
         if (logFilterApplier.showDebugInfo()) System.out.println("PrintStream used for logging: " + TARGET_STREAM);
 
