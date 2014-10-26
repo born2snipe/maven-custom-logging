@@ -1,4 +1,4 @@
-# Maven Custom Logging
+# Maven Custom Logging [![Build Status](https://travis-ci.org/born2snipe/maven-custom-logging.svg)](https://travis-ci.org/born2snipe/maven-custom-logging)
 
 This is a maven extension that allows some customization of the maven console output.
 
