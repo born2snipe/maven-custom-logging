@@ -38,6 +38,12 @@ public class LineServerManagerTest {
     }
 
     @Test
+    public void shouldNotTryAndProcessingAnyThingIfTheBuildFailsBeforeSurefireEvenBegins() {
+        manage(buildFailure(), lineProcessor);
+        assertTrue(canNotConnectToServer());
+    }
+
+    @Test
     public void shouldShutdownTheServerWhenTheBuildFails() {
         manage(surefire(), lineProcessor);
         manage(buildFailure(), lineProcessor);

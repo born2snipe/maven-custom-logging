@@ -27,9 +27,10 @@ public class LineServerManager {
             server.addListener(lineListener);
             server.start();
             running.set(true);
-        } else if (isBuildFinished(line)) {
+        } else if (isRunning() && isBuildFinished(line)) {
             server.stop();
             running.set(false);
+            server = null;
         }
     }
 
@@ -38,7 +39,11 @@ public class LineServerManager {
     }
 
     private static boolean isNotRunningAlready() {
-        return !running.get();
+        return !isRunning();
+    }
+
+    private static boolean isRunning() {
+        return running.get();
     }
 
     private static boolean isSurefirePluginStarting(String line) {
