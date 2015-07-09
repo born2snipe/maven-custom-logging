@@ -24,17 +24,19 @@
 
     <modules>
         <module>test-module</module>
-        <module>3.0.1</module>
-        <module>3.0.2</module>
-        <module>3.0.3</module>
-        <module>3.0.4</module>
-        <module>3.0.5</module>
-        <module>3.1.0</module>
-        <module>3.1.1</module>
-        <module>3.2.1</module>
-        <module>3.2.2</module>
-        <module>3.2.3</module>
-        <module>3.2.5</module>
+        <!--<module>3.0.1</module>-->
+        <!--<module>3.0.2</module>-->
+        <!--<module>3.0.3</module>-->
+        <!--<module>3.0.4</module>-->
+        <!--<module>3.0.5</module>-->
+        <!--<module>3.1.0</module>-->
+        <!--<module>3.1.1</module>-->
+        <!--<module>3.2.1</module>-->
+        <!--<module>3.2.2</module>-->
+        <!--<module>3.2.3</module>-->
+        <!--<module>3.2.5</module>-->
+        <!--<module>3.3.1</module>-->
+        <module>3.3.3</module>
     </modules>
 
 
