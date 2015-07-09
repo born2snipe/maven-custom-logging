@@ -45,7 +45,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-v${project.version}</finalName>
 
         <plugins>
 
