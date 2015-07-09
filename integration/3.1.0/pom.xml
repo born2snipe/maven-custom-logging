@@ -4,35 +4,19 @@
 
     <parent>
         <groupId>b2s.maven</groupId>
-        <artifactId>integration</artifactId>
+        <artifactId>parent-integration</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../parent-integration/pom.xml</relativePath>
     </parent>
 
     <artifactId>integration-3.1.0</artifactId>
     <packaging>jar</packaging>
     <name>3.1.0</name>
 
+    <properties>
+        <maven-custom-logger>3.1</maven-custom-logger>
+    </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>test-module</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>maven-custom-logging-3.1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-embedder</artifactId>
-            <version>${project.name}</version>
-        </dependency>
-
-    </dependencies>
 
 </project>
 

@@ -24,6 +24,7 @@
 
     <modules>
         <module>test-module</module>
+        <module>parent-integration</module>
         <module>3.0.1</module>
         <module>3.0.2</module>
         <module>3.0.3</module>
