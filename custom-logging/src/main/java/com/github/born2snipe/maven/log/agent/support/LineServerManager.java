@@ -16,6 +16,7 @@ package com.github.born2snipe.maven.log.agent.support;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LineServerManager {
+    public static boolean enabled = false;
     protected static int PORT = 36480;
     private static final String PLUGIN_STARTING_PATTERN = ".*?--- .+ ---";
     private static LineServer server;

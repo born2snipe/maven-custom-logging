@@ -14,7 +14,7 @@ public class AbstractMavenVersionSupportTestCase {
 
     @Test
     public void shouldWork() throws IOException {
-            File folder = temporaryFolder.newFolder();
+            File folder = temporaryFolder.newFolder(String.valueOf(System.nanoTime()));
             TestExecutor.execute(folder);
     }
 }

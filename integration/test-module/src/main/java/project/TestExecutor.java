@@ -15,7 +15,6 @@ package project;
 
 import org.apache.maven.cli.MavenCli;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
@@ -23,32 +22,16 @@ import static org.junit.Assert.assertEquals;
 
 public class TestExecutor {
     public static void execute(File folder) {
-//        PrintStream noOp = new NoOpPrintStream();
-        PrintStream noOp = System.out;
+        PrintStream out = System.out;
         ProjectExtractor.extract(folder);
 
         MavenCli cli = new MavenCli();
         int result = cli.doMain(
                 new String[]{"test"},
                 folder.getAbsolutePath(),
-                noOp, noOp);
+                out, out);
+        out.flush();
 
         assertEquals(0, result);
-    }
-
-    private static class NoOpPrintStream extends PrintStream {
-        public NoOpPrintStream() {
-            super(new ByteArrayOutputStream());
-        }
-
-        @Override
-        public void println(String x) {
-
-        }
-
-        @Override
-        public void print(String s) {
-
-        }
     }
 }

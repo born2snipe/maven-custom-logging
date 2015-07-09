@@ -30,6 +30,7 @@ public class LineServerManagerTest {
     @Before
     public void setUp() throws Exception {
         LineServerManager.PORT = 63840;
+        LineServerManager.enabled = true;
     }
 
     @After
