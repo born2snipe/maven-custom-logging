@@ -15,6 +15,8 @@
 
     <properties>
         <maven-custom-logger></maven-custom-logger>
+        <aether-connector>1.13.1</aether-connector>
+        <wagon-http>2.9</wagon-http>
     </properties>
 
     <dependencies>
@@ -34,7 +36,16 @@
             <artifactId>maven-embedder</artifactId>
             <version>${project.name}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.sonatype.aether</groupId>
+            <artifactId>aether-connector-wagon</artifactId>
+            <version>${aether-connector}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-http-lightweight</artifactId>
+            <version>${wagon-http}</version>
+        </dependency>
     </dependencies>
 
 </project>
