@@ -15,6 +15,7 @@ package project;
 
 import org.apache.maven.cli.MavenCli;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
@@ -22,16 +23,29 @@ import static org.junit.Assert.assertEquals;
 
 public class TestExecutor {
     public static void execute(File folder) {
-        PrintStream out = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        PrintStream printStream = new PrintStream(output);
         ProjectExtractor.extract(folder);
 
         MavenCli cli = new MavenCli();
         int result = cli.doMain(
                 new String[]{"test"},
                 folder.getAbsolutePath(),
-                out, out);
-        out.flush();
+                printStream, printStream);
+        printStream.flush();
+        System.out.println(getOutput(output));
 
-        assertEquals(0, result);
+        assertEquals(getOutput(output), 0, result);
+    }
+
+    private static String getOutput(ByteArrayOutputStream output) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\n==============================\n");
+        builder.append("  MAVEN CONSOLE OUTPUT\n");
+        builder.append("==============================\n");
+        builder.append(new String(output.toByteArray()));
+        builder.append("\n==============================\n\n");
+        return builder.toString();
     }
 }
