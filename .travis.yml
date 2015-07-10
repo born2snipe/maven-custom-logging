@@ -5,4 +5,4 @@ jdk:
 branches:
   only:
     - master
-
+sudo: false
