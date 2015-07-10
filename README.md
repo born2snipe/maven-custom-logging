@@ -11,7 +11,7 @@ This is a maven extension that allows some customization of the maven console ou
 - Alter text output or remove output
 
 ## Setup
-- Download the [JAR 3.0 or 3.1 support][4] to your `$MAVEN_HOME/lib/ext` directory
+- Download the [3.0 or 3.1][4] JAR to your `$MAVEN_HOME/lib/ext` directory
 - Run any maven build you would like and you should see some colors!
 
 ## How to use my own configuration?
