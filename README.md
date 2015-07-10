@@ -11,8 +11,7 @@ This is a maven extension that allows some customization of the maven console ou
 - Alter text output or remove output
 
 ## Setup
-- Clone the project and build using Maven
-- Copy the JAR from 3.0 or 3.1 support `target` folder to your `$MAVEN_HOME/lib/ext` directory
+- Download the [JAR 3.0 or 3.1 support][4] to your `$MAVEN_HOME/lib/ext` directory
 - Run any maven build you would like and you should see some colors!
 
 ## How to use my own configuration?
@@ -53,9 +52,11 @@ There are 4 different ways for you to supply a custom configuration file:
   - [X] 3.2.1
   - [X] 3.2.2
   - [X] 3.2.3
-
+  - [X] 3.3.1
+  - [X] 3.3.3
 
 
   [1]: https://github.com/born2snipe/maven-custom-logging/blob/master/custom-logging/src/main/resources/config/default.yml "sample"
   [2]: https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/AnsiRenderer.java#L127 "colors"
   [3]: https://github.com/fusesource/jansi/blob/master/jansi/src/test/java/org/fusesource/jansi/AnsiRendererTest.java "syntax"
+  [4]: https://github.com/born2snipe/maven-custom-logging/releases/tag/v0.1 "release"
